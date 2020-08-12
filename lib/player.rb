@@ -1,17 +1,22 @@
 class Player
-    attr_accessor :total_moves, :position
+    attr_accessor :position
     def initialize(position)
-        @total_moves = 0
         @position = position
     end
 
     def legal_moves(current)
-        #take the current position and return legal moves from there based on piece's direction instance variable
         result = []
+
+        #see if self.direction has any moves with 'notes' ("must be first move" or "opponent must be present")
+            #if so, evaluate that statement and do not push it to result
+            #if the statement is true, push the move, sans 'note,' to result
+
         self.direction.each do |arr|
-            result << [arr[0] + current[0], arr[1] + current[1]]
+            next if arr.include?("must be first move") && self.total_moves > 0
+            #I need something that evaluates "opponent must be present"
+            result << arr.select { |value| value.class == Integer }
         end
-        result
+
     end
 
     def move(current, target)
