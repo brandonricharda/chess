@@ -17,15 +17,17 @@ class Board
         vertices
     end
 
-    def display
-        row = []
-        @board.keys.each do |vertex|
-            if row.length == 8
-                p row
-                row = []
-            end
-            row << "*" if vertex.length == 2
-        end
-    end
+    #I need to create a new display method that handles this more eloquently
+
+    # def display
+    #     row = []
+    #     @board.keys.each do |vertex|
+    #         if row.length == 8
+    #             p row
+    #             row = []
+    #         end
+    #         row << "*" if vertex.length == 2
+    #     end
+    # end
 
 end
