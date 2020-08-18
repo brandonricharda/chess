@@ -7,11 +7,11 @@ class Board
     end
 
     def get_vertices
-        vertices = []
+        vertices = {}
         axis = 0.upto(7).to_a
         axis.each do |x|
             axis.each do |y|
-                vertices << [x, y]
+                vertices[[x, y]] = nil
             end
         end
         vertices
@@ -19,7 +19,7 @@ class Board
 
     def display
         row = []
-        @board.each do |vertex|
+        @board.keys.each do |vertex|
             if row.length == 8
                 p row
                 row = []

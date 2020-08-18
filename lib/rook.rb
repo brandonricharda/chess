@@ -1,10 +1,15 @@
 require_relative "player.rb"
 
 class Rook < Player
-    attr_accessor :symbol
-    def initialize(color, starting)
-        super(starting)
+    attr_accessor :symbol, :direction
+    def initialize(position, color)
+        super(position, color)
         options = {"white" => "\u2656", "black" => "\u265C"}
         @symbol = options[color]
+        @direction = determine_direction
+    end
+
+    def determine_direction
+
     end
 end
