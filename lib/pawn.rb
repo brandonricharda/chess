@@ -9,6 +9,8 @@ class Pawn < Player
     end
 
     def potential_moves
+        #this method will assign potential moves
+        #the legality of those moves will be evaluated based on the current board state in the Game or Board class
         result = []
         x = @position[0]
         y = @position[1]
@@ -39,7 +41,3 @@ class Pawn < Player
     end
 
 end
-
-test = Pawn.new([7, 7], "white")
-
-p test.potential_moves
