@@ -9,7 +9,8 @@ class Rook < Player
         @direction = determine_direction
     end
 
-    def determine_direction
-
+    def potential_moves
+        
     end
+
 end
