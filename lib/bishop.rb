@@ -29,7 +29,3 @@ class Bishop < Player
     end
 
 end
-
-test = Bishop.new([0, 0], "black")
-
-p test.potential_moves
