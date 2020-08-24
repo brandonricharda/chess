@@ -2,7 +2,10 @@ module All_Directions
 
     def diagonal(x, y, position)
         result = []
-
+        #I need to alter this method so it actually produces an array of diagonal values in all directions
+        #right now the array just contains values extending upward right and downward left to the current position
+        #perhaps we can even return a result that can be interpreted by a class like Pawn to reduce the code there
+        #for example, a hash that looks like { :top_right => [], :top_left => [], etc }
         until x == 0 || y == 0
             x -= 1
             y -= 1
