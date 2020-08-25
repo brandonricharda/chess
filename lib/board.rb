@@ -1,9 +1,9 @@
 class Board
 
-    attr_accessor :board
+    attr_accessor :vertices
 
     def initialize
-        @board = get_vertices
+        @vertices = get_vertices
     end
 
     def get_vertices
@@ -16,18 +16,5 @@ class Board
         end
         vertices
     end
-
-    #I need to create a new display method that handles this more eloquently
-
-    # def display
-    #     row = []
-    #     @board.keys.each do |vertex|
-    #         if row.length == 8
-    #             p row
-    #             row = []
-    #         end
-    #         row << "*" if vertex.length == 2
-    #     end
-    # end
 
 end
