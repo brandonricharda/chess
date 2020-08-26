@@ -4,23 +4,54 @@ module All_Directions
 
 end
 
-#working on methods that will create adjacency lists in each direction
-#I'll add it to the module once complete
+#need to incorporate the methods below into the module so everything (including @vertices) is accessible to files that access it
 
 @vertices = Board.new.vertices.keys
 
-def top(x, y)
-    @vertices.select { |coordinates| coordinates[0] == x && coordinates[1] > y }
+def top(arr)
+    @vertices.select { |coordinates| coordinates[0] == arr[0] && coordinates[1] > arr[1] }
 end
 
-def bottom(x, y)
-    @vertices.select { |coordinates| coordinates[0] == x && coordinates[1] < y }
+def bottom(arr)
+    @vertices.select { |coordinates| coordinates[0] == arr[0] && coordinates[1] < arr[1] }
 end
 
-def left(x, y)
-    @vertices.select { |coordinates| coordinates[0] < x && coordinates[1] == y }
+def left(arr)
+    @vertices.select { |coordinates| coordinates[0] < arr[0] && coordinates[1] == arr[1] }
 end
 
-def right(x, y)
-    @vertices.select { |coordinates| coordinates[0] > x && coordinates[1] == y }
+def right(arr)
+    @vertices.select { |coordinates| coordinates[0] > arr[0] && coordinates[1] == arr[1] }
+end
+
+def top_right(arr, result = [])
+    return result if arr[0] == 7 || arr[1] == 7
+    square_above = top(arr).first
+    diagonal = right(square_above).first
+    result << diagonal
+    top_right(diagonal, result)
+end
+
+def top_left(arr, result = [])
+    return result if arr[0] == 0 || arr[1] == 7
+    square_above = top(arr).first
+    diagonal = left(square_above).last
+    result << diagonal
+    top_left(diagonal, result)
+end
+
+def bottom_right(arr, result = [])
+    return result if arr[0] == 7 || arr[1] == 0
+    square_below = bottom(arr).last
+    diagonal = right(square_below).first
+    result << diagonal
+    bottom_right(diagonal, result)
+end
+
+def bottom_left(arr, result = [])
+    return result if arr[0] == 0 || arr[1] == 0
+    square_below = bottom(arr).last
+    diagonal = left(square_below).last
+    result << diagonal
+    bottom_left(diagonal, result)
 end
