@@ -11,9 +11,7 @@ class Bishop < Player
     end
 
     def potential_moves
-        x = @position[0]
-        y = @position[1]
-        diagonal(x, y, @position)
+        top_left(@position) + top_right(@position) + bottom_right(@position) + bottom_left(@position)
     end
 
 end
