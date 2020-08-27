@@ -9,10 +9,4 @@ class Queen < Player
         options = {"white" => "\u2655", "black" => "\u265B"}
         @symbol = options[color]
     end
-
-    def potential_moves
-        x = @position[0]
-        y = @position[1]
-        diagonal(x, y, @position) + linear(x, y, @position, @team)
-    end
 end
