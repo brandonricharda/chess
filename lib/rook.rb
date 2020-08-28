@@ -11,9 +11,7 @@ class Rook < Player
     end
 
     def potential_moves
-        x = @position[0]
-        y = @position[1]
-        linear(x, y, @position, @team)
+        left(@position) + top(@position) + right(@position)
     end
 
 end
