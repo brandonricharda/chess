@@ -14,6 +14,8 @@ class Pawn < Player
 
         result = []
 
+        #accounts for the fact that white pawns move "backwards"
+        #because they sit at the opposite end of the board
         if @team == "black"
             result << top(@position)[0]
             result << top(@position)[1]
