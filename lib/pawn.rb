@@ -1,4 +1,6 @@
+require_relative "all_directions.rb"
 require_relative "player.rb"
+include All_Directions
 
 class Pawn < Player
     attr_accessor :symbol
@@ -9,34 +11,23 @@ class Pawn < Player
     end
 
     def potential_moves
-        #this method will assign potential moves
-        #the legality of those moves will be evaluated based on the current board state in the Game or Board class
+
         result = []
-        x = @position[0]
-        y = @position[1]
 
         if @team == "black"
-            #one square forward
-            result << [x, y + 1]
-            #two squares forward unless it's not first move
-            result << [x, y + 2] unless @total_moves > 0
-            #diagonal right
-            result << [x + 1, y + 1]
-            #diagonal left
-            result << [x - 1, y + 1]
+            result << top(@position)[0]
+            result << top(@position)[1]
+            result << top_left(@position)[-1]
+            result << top_right(@position)[0]
         elsif @team == "white"
-            #same as above, except adjusted to account for opposite player
-            #since the board always remains in the same player (black) perspective
-            result << [x, y - 1]
-            result << [x, y - 2] unless @total_moves > 0
-            result << [x + 1, y - 1]
-            result << [x - 1, y - 1]
+            result << bottom(@position)[-1]
+            result << bottom(@position)[-2]
+            result << bottom_left(@position)[0]
+            result << bottom_right(@position)[-1]
         end
 
-        #weeds out any moves that would be off the board
-        #I may want to move this to the player or game class to avoid repetition
-        result = result.select { |coordinates| coordinates.all? { |axis| axis <= 7 && axis >= 0 } }
-        result
+        #returns non-nil values
+        result.select { |coordinates| coordinates }
 
     end
 
