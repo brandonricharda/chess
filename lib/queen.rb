@@ -11,7 +11,11 @@ class Queen < Player
     end
 
     def potential_moves
-        #this works but is hard to read – looking into a means of running each module method for @position to avoid repetition
-        top(@position) + right(@position) + bottom(@position) + left(@position) + top_right(@position) + bottom_right(@position) + bottom_left(@position) + top_left(@position)
+        result = []
+        All_Directions.instance_methods.each do |method|
+            next if method == :vertices
+            result << public_send(method, @position)
+        end
+        result.select { |coordinates| !coordinates.empty? }
     end
 end
