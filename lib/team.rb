@@ -12,4 +12,7 @@ class Team
         end
         result
     end
+
+    #I need a method that lists all of a team's pieces currently on the board
+
 end
