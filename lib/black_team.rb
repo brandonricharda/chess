@@ -1,13 +1,13 @@
 Dir["*.rb"].each { |file| require_relative file }
 
-class BlackTeam > Team
-    attr_accessor :starting_positions, :board_reference
+class BlackTeam < Team
+    attr_accessor :pieces
     def initialize
         @board_reference = Board.new.vertices.keys
-        @pieces = create_pieces
+        @pieces = create_pieces(starting_positions, "black")
     end
 
-    def get_positions
+    def starting_positions
         result = {
             Rook => [[0, 0], [7, 0]],
             Knight => [[1, 0], [6, 0]],
@@ -17,5 +17,4 @@ class BlackTeam > Team
             Pawn => @board_reference.select { |coordinates| coordinates[1] == 1 }
         }
     end
-
 end
