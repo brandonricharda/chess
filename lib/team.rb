@@ -19,7 +19,6 @@ class Team
             result[piece.class] = [] unless result[piece.class]
             result[piece.class] << piece.position
         end
-        result
+        result.each { |pair| p pair }
     end
-
 end
