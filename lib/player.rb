@@ -7,4 +7,8 @@ class Player
         @team = color
         @total_moves = 0
     end
+
+    def update_position(destination)
+        @position = destination
+    end
 end
