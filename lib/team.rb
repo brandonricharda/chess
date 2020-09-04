@@ -13,6 +13,13 @@ class Team
         result
     end
 
-    #I need a method that lists all of a team's pieces currently on the board
+    def list_pieces
+        result = {}
+        @pieces.each do |piece|
+            result[piece.class] = [] unless result[piece.class]
+            result[piece.class] << piece.position
+        end
+        result
+    end
 
 end
