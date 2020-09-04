@@ -1,6 +1,7 @@
 class Team
     def initialize
         @pieces = create_pieces
+        @selected_piece = nil
     end
 
     def create_pieces(starting_positions, color)
@@ -29,6 +30,6 @@ class Team
             next if potential.class.to_s.upcase != piece.upcase
             result = potential if potential.position == position
         end
-        result
+        @selected_piece = result
     end
 end
