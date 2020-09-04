@@ -26,7 +26,7 @@ class Team
         result = nil
         @pieces.each do |potential|
             break if result
-            next if potential.class.to_s != piece
+            next if potential.class.to_s.upcase != piece.upcase
             result = potential if potential.position == position
         end
         result
