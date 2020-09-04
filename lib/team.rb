@@ -21,4 +21,14 @@ class Team
         end
         result.each { |pair| p pair }
     end
+
+    def selector(piece, position)
+        result = nil
+        @pieces.each do |potential|
+            break if result
+            next if potential.class.to_s != piece
+            result = potential if potential.position == position
+        end
+        result
+    end
 end
