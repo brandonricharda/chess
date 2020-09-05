@@ -1,4 +1,5 @@
-Dir["*.rb"].each { |file| require_relative file }
+require_relative "team.rb"
+require_relative "board.rb"
 
 class WhiteTeam < Team
     attr_accessor :pieces

@@ -1,7 +1,8 @@
-Dir["*.rb"].each { |file| require_relative file }
+require_relative "team.rb"
+require_relative "board.rb"
 
 class BlackTeam < Team
-    attr_accessor :pieces
+    attr_accessor :pieces, :pieces
     def initialize
         @board_reference = Board.new.vertices.keys
         @pieces = create_pieces(starting_positions, "black")

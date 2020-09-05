@@ -1,4 +1,5 @@
 class Team
+    attr_accessor :pieces, :selected_piece
     def initialize
         @pieces = create_pieces
         @selected_piece = nil
