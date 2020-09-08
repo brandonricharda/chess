@@ -1,6 +1,7 @@
 class Board
     attr_accessor :vertices
     def initialize
+        @teams = ["black", "white"]
         @vertices = get_vertices
     end
 
@@ -15,12 +16,13 @@ class Board
         vertices
     end
 
-    def opponent_present?(position, opposite_team)
-        result = @vertices[position] == opposite_team ? true : false
+    def opponent_present?(position, team)
+        opponent = @teams.select { |option| option != team }
+        result = @vertices[position] == opponent ? true : false
     end
 
-    def own_present?(position, own_team)
-        result = @vertices[position] == own_team ? true : false
+    def own_present?(position, team)
+        result = @vertices[position] == team ? true : false
     end
 
 end
