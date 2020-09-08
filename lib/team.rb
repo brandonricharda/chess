@@ -61,4 +61,12 @@ class Team
         end
         @selected_piece = result
     end
+
+    def eliminate(piece)
+        position = piece.position
+        @eliminated_pieces << piece
+        @active_pieces.delete(piece)
+        @positions[piece.class].delete(position)
+    end
+
 end
