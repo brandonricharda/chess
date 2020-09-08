@@ -1,23 +1,18 @@
-require_relative "bishop.rb"
-require_relative "king.rb"
-require_relative "knight.rb"
-require_relative "pawn.rb"
-require_relative "queen.rb"
-require_relative "rook.rb"
+["bishop.rb", "king.rb", "knight.rb", "pawn.rb", "queen.rb", "rook.rb"].each { |file| require_relative file }
 
 class Team
     attr_accessor :color, :positions, :active_pieces, :selected_piece, :eliminated_pieces
     def initialize(color)
-        @board_reference = Board.new.vertices.keys
         @color = color
-        @positions = starting_positions(@color)
-        @active_pieces = create_pieces(@positions, @color)
+        @board_reference = Board.new.vertices.keys
+        @positions = starting_positions
+        @active_pieces = create_pieces
         @selected_piece = nil
         @eliminated_pieces = []
     end
 
-    def starting_positions(color)
-        if color == "black"
+    def starting_positions
+        if @color == "black"
             result = {
                 Rook => [[0, 0], [7, 0]],
                 Knight => [[1, 0], [6, 0]],
@@ -26,7 +21,7 @@ class Team
                 King => [[4, 0]],
                 Pawn => @board_reference.select { |coordinates| coordinates[1] == 1 }
             }
-        elsif color == "white"
+        elsif @color == "white"
             result = {
                 Rook => [[0, 7], [7, 7]],
                 Knight => [[1, 7], [6, 7]],
@@ -38,11 +33,11 @@ class Team
         end
     end
 
-    def create_pieces(starting_positions, color)
+    def create_pieces
         result = []
-        starting_positions.each do |piece, array|
+        @positions.each do |piece, array|
             array.each do |coordinates|
-                result << piece.new(coordinates, color)
+                result << piece.new(coordinates, @color)
             end
         end
         result
@@ -67,6 +62,3 @@ class Team
         @selected_piece = result
     end
 end
-
-test = Team.new("black")
-p test.positions
