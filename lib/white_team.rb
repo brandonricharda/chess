@@ -4,6 +4,7 @@ require_relative "board.rb"
 class WhiteTeam < Team
     attr_accessor :pieces
     def initialize
+        @color = "white"
         @pieces = create_pieces(starting_positions, "white")
     end
 
