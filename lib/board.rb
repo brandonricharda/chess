@@ -1,7 +1,5 @@
 class Board
-
     attr_accessor :vertices
-
     def initialize
         @vertices = get_vertices
     end
@@ -15,6 +13,14 @@ class Board
             end
         end
         vertices
+    end
+
+    def opponent_present?(position, opposite_team)
+        result = @vertices[position] == opposite_team ? true : false
+    end
+
+    def own_present?(position, own_team)
+        result = @vertices[position] == own_team ? true : false
     end
 
 end
