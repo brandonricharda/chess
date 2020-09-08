@@ -3,6 +3,7 @@ class Team
     def initialize
         @pieces = create_pieces
         @selected_piece = nil
+        @eliminated_pieces = []
     end
 
     def create_pieces(starting_positions, color)
