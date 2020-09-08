@@ -1,10 +1,41 @@
+require_relative "bishop.rb"
+require_relative "king.rb"
+require_relative "knight.rb"
+require_relative "pawn.rb"
+require_relative "queen.rb"
+require_relative "rook.rb"
+
 class Team
-    attr_accessor :pieces, :selected_piece
-    def initialize
-        @pieces = create_pieces
+    attr_accessor :color, :positions, :active_pieces, :selected_piece, :eliminated_pieces
+    def initialize(color)
+        @board_reference = Board.new.vertices.keys
+        @color = color
+        @positions = starting_positions(@color)
+        @active_pieces = create_pieces(@positions, @color)
         @selected_piece = nil
         @eliminated_pieces = []
-        @board_reference = Board.new.vertices.keys
+    end
+
+    def starting_positions(color)
+        if color == "black"
+            result = {
+                Rook => [[0, 0], [7, 0]],
+                Knight => [[1, 0], [6, 0]],
+                Bishop => [[2, 0], [5, 0]],
+                Queen => [[3, 0]],
+                King => [[4, 0]],
+                Pawn => @board_reference.select { |coordinates| coordinates[1] == 1 }
+            }
+        elsif color == "white"
+            result = {
+                Rook => [[0, 7], [7, 7]],
+                Knight => [[1, 7], [6, 7]],
+                Bishop => [[2, 7], [5, 7]],
+                Queen => [[3, 7]],
+                King => [[4, 7]],
+                Pawn => @board_reference.select { |coordinates| coordinates[1] == 6 }
+            }
+        end
     end
 
     def create_pieces(starting_positions, color)
@@ -19,7 +50,7 @@ class Team
 
     def list_pieces
         result = {}
-        @pieces.each do |piece|
+        @active_pieces.each do |piece|
             result[piece.class] = [] unless result[piece.class]
             result[piece.class] << piece.position
         end
@@ -28,7 +59,7 @@ class Team
 
     def selector(piece, position)
         result = nil
-        @pieces.each do |potential|
+        @active_pieces.each do |potential|
             break if result
             next if potential.class.to_s.upcase != piece.upcase
             result = potential if potential.position == position
@@ -36,3 +67,6 @@ class Team
         @selected_piece = result
     end
 end
+
+test = Team.new("black")
+p test.positions
