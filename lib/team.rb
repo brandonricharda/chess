@@ -4,6 +4,7 @@ class Team
         @pieces = create_pieces
         @selected_piece = nil
         @eliminated_pieces = []
+        @board_reference = Board.new.vertices.keys
     end
 
     def create_pieces(starting_positions, color)
