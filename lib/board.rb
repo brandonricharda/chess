@@ -21,8 +21,4 @@ class Board
         result = @vertices[position] == opponent ? true : false
     end
 
-    def own_present?(position, team)
-        result = @vertices[position] == team ? true : false
-    end
-
 end
