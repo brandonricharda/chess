@@ -11,7 +11,7 @@ class Rook < Player
     end
 
     def potential_moves
-        left(@position) + top(@position) + right(@position)
+        left(@position) + top(@position) + right(@position) + bottom(@position)
     end
 
 end
