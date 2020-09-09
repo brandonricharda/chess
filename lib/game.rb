@@ -18,4 +18,17 @@ class Game
         team.selector(piece, position)
     end
 
+    def prompt_move(team)
+        player_select(team)
+        piece = team.selected_piece
+        allowed_moves = piece.class == Pawn ? piece.potential_moves(true) : piece.potential_moves
+    end
+
+    def move
+        prompt_move(@black_team)
+    end
+
 end
+
+test = Game.new
+test.move
