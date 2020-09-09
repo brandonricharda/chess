@@ -3,7 +3,7 @@ require_relative "player.rb"
 include All_Directions
 
 class Pawn < Player
-    attr_accessor :symbol
+    attr_accessor :symbol, :diagonal_coordinates
     def initialize(position, color)
         super(position, color)
         options = {"white" => "\u2659", "black" => "\u265F"}
@@ -24,6 +24,10 @@ class Pawn < Player
             result << bottom_right(@position)[-1] unless !diagonal
         end
         result.select { |coordinates| coordinates }
+    end
+
+    def diagonal_coordinates
+        potential_moves(true).last(2).select { |coordinates| coordinates[0] != @position[0] }
     end
 
 end
