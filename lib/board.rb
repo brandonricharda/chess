@@ -21,4 +21,13 @@ class Board
         result = @vertices[position] == opponent ? true : false
     end
 
+    def path_blocked?(piece, desired_spot)
+        potential_moves = piece.potential_moves
+        in_between = []
+        potential_moves.each do |coordinates|
+            in_between << coordinates if @vertices[coordinates] != nil
+        end
+        in_between.length > 0
+    end
+
 end
