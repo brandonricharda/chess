@@ -13,15 +13,15 @@ class Pawn < Player
     def potential_moves
         result = []
         if @team == "black"
-            result << top(@position)[0]
-            result << top(@position)[1] unless @total_moves > 0
-            result << top_left(@position)[-1]
-            result << top_right(@position)[0]
+            result << top(@position).first
+            result << top(@position).second unless @total_moves > 0
+            result << top_left(@position).first
+            result << top_right(@position).first
         elsif @team == "white"
-            result << bottom(@position)[-1]
+            result << bottom(@position).last
             result << bottom(@position)[-2] unless @total_moves > 0
-            result << bottom_left(@position)[0]
-            result << bottom_right(@position)[-1]
+            result << bottom_left(@position).first
+            result << bottom_right(@position).first
         end
         result.select { |coordinates| coordinates }
     end
