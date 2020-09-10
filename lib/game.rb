@@ -9,15 +9,6 @@ class Game
         @white_team = Team.new("white")
     end
 
-    def player_select(team)
-        team.list_pieces
-        p "Please select which piece you want to move. Just the name of the piece for now (i.e. pawn)."
-        piece = gets.chomp
-        p "What position is the piece you want to move?"
-        position = JSON.parse(gets.chomp)
-        team.selector(piece, position)
-    end
-
     def validate_move(piece, move)
         #if piece is Pawn, we need to check two things
         if piece.class == Pawn

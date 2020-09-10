@@ -1,4 +1,5 @@
 ["bishop.rb", "king.rb", "knight.rb", "pawn.rb", "queen.rb", "rook.rb"].each { |file| require_relative file }
+require "json"
 
 class Team
     attr_accessor :color, :positions, :active_pieces, :selected_piece, :eliminated_pieces
@@ -52,12 +53,16 @@ class Team
         result.each { |pair| p pair }
     end
 
-    def selector(piece, position)
+    def selector
+        list_pieces
+        p "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn)."
+        piece = gets.chomp.upcase
+        p "What position is the piece you want to move?"
+        position = JSON.parse(gets.chomp)
         result = nil
         @active_pieces.each do |potential|
             break if result
-            next if potential.class.to_s.upcase != piece.upcase
-            result = potential if potential.position == position
+            result = potential if potential.position == position && potential.class.to_s.upcase == piece
         end
         @selected_piece = result
     end
