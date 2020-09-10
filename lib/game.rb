@@ -2,11 +2,19 @@ Dir["*.rb"].each { |file| require_relative file unless file == "game.rb" }
 require "json"
 
 class Game
-    attr_accessor :board
+    attr_accessor :board, :black_team, :white_team
     def initialize
         @board = Board.new
         @black_team = Team.new("black")
         @white_team = Team.new("white")
+    end
+
+    def update_board
+        [@black_team, @white_team].each do |team|
+            team.active_pieces.each do |piece|
+                @board.vertices[piece.position] = piece
+            end
+        end
     end
 
     def validate_move(piece, move)
