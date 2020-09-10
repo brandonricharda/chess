@@ -9,14 +9,6 @@ class Game
         @white_team = Team.new("white")
     end
 
-    def update_board
-        [@black_team, @white_team].each do |team|
-            team.active_pieces.each do |piece|
-                @board.vertices[piece.position] = piece
-            end
-        end
-    end
-
     def validate_move(piece, move)
         #if piece is Pawn, we need to check two things
         if piece.class == Pawn

@@ -30,4 +30,10 @@ class Board
         in_between.length > 0
     end
 
+    def update_board(teams)
+        teams.each do |team|
+            team.active_pieces.each { |piece| @vertices[piece.position] = piece }
+        end
+    end
+
 end
