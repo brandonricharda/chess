@@ -1,8 +1,9 @@
 class Board
-    attr_accessor :vertices
+    attr_accessor :occupancies, :vertices
     def initialize
         @teams = ["black", "white"]
-        @vertices = get_vertices
+        @occupancies = get_vertices
+        @vertices = @occupancies.keys
     end
 
     def get_vertices
@@ -37,3 +38,6 @@ class Board
     end
 
 end
+
+test = Board.new
+p test.vertices
