@@ -11,19 +11,11 @@ class Pawn < Player
     end
 
     def potential_moves
-        result = []
-        if @team == "black"
-            result << top(@position).first
-            result << top(@position).second unless @total_moves > 0
-            result << top_left(@position).first
-            result << top_right(@position).first
-        elsif @team == "white"
-            result << bottom(@position).last
-            result << bottom(@position)[-2] unless @total_moves > 0
-            result << bottom_left(@position).first
-            result << bottom_right(@position).first
-        end
-        result.select { |coordinates| coordinates }
+        forward_one = @team == "black" ? top(@position)[0] : bottom(@position)[-1]
+        forward_two = @team == "black" ? top(@position)[1] : bottom(@position)[-2] unless @total_moves > 0
+        diagonal_left = @team == "black" ? top_left(@position)[0] : bottom_left(@position)[0]
+        diagonal_right = @team == "black" ? top_right(@position)[0] : bottom_right(@position)[0]
+        [forward_one, forward_two, diagonal_left, diagonal_right].select { |coordinates| coordinates }
     end
 
     def diagonal_coordinates
