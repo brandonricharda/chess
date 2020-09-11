@@ -24,6 +24,3 @@ class Knight < Player
         [upward_left, upward_right, sideways_left_up, sideways_right_up, downward_left, downward_right, sideways_left_down, sideways_right_down].select { |coordinates| coordinates.all? { |axis| axis >= board_axis_edge } }
     end
 end
-
-test = Knight.new([0, 0], "black")
-p test.potential_moves
