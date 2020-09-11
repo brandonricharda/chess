@@ -38,6 +38,3 @@ class Board
     end
 
 end
-
-test = Board.new
-p test.vertices
