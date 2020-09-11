@@ -1,6 +1,4 @@
-require_relative "all_directions.rb"
 require_relative "player.rb"
-include All_Directions
 
 class Pawn < Player
     attr_accessor :symbol, :diagonal_coordinates
