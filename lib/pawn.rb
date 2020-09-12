@@ -15,11 +15,20 @@ class Pawn < Player
         min_board_edge = 0
         max_board_edge = 7
         max_moves_allowing_two_forward = 0
-        one_forward = @team == "black" ? [x, y + single_square] : [x, y - single_square]
-        two_forward = @team == "black" ? [x, y + (single_square * 2)] : [x, y - (single_square * 2)] unless @total_moves > max_moves_allowing_two_forward
-        diagonal_left = @team == "black" ? [x - single_square, y + single_square] : [x - single_square, y - single_square]
-        diagonal_right = @team == "black" ? [x + single_square, y + single_square] : [x + single_square, y - single_square]
-        [one_forward, two_forward, diagonal_left, diagonal_right].select { |coordinates| coordinates.all? { |axis| (min_board_edge..max_board_edge).include?(axis) } }
+        if @team == "black"
+            one_forward = [x, y + single_square]
+            two_forward = [x, y + (single_square * 2)] unless @total_moves > max_moves_allowing_two_forward
+            diagonal_left = [x - single_square, y + single_square]
+            diagonal_right = [x + single_square, y + single_square]
+        elsif @team == "white"
+            one_forward = [x, y - single_square]
+            two_forward = [x, y - (single_square * 2)] unless @total_moves > max_moves_allowing_two_forward
+            diagonal_left = [x - single_square, y - single_square]
+            diagonal_right = [x + single_square, y - single_square]
+        end
+        [one_forward, two_forward, diagonal_left, diagonal_right].select do |coordinates|
+            coordinates.all? { |axis| (min_board_edge..max_board_edge).include?(axis) }
+        end
     end
 
 end
