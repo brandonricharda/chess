@@ -32,6 +32,7 @@ class Pawn < Player
         #moving forward as black pawn means moving to higher value (>) squares
         #moving forward as white pawn means moving to lower value (<) squares
         comp_op = @team == "black" ? ">" : "<"
+        #selects legal moves based on y axis comparison using assigned operator
         result.select { |coordinates| coordinates[1].public_send(comp_op, @position[1]) }
     end
 
