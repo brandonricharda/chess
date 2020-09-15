@@ -12,14 +12,14 @@ class Player
         @position = destination
     end
 
-    def parse_potential_moves(squares_moved)
+    def parse_potential_moves(legal_movements)
         result = []
         vertices = Board.new.vertices
         vertices.each do |coordinates|
             comparison = []
             comparison << (coordinates[0] - @position[0]).abs
             comparison << (coordinates[1] - @position[1]).abs
-            result << coordinates if squares_moved.values.include?(comparison)
+            result << coordinates if legal_movements.values.include?(comparison)
         end
         result
     end
