@@ -11,4 +11,16 @@ class Player
     def update_position(destination)
         @position = destination
     end
+
+    def parse_potential_moves(squares_moved)
+        result = []
+        vertices = Board.new.vertices
+        vertices.each do |coordinates|
+            comparison = []
+            comparison << (coordinates[0] - @position[0]).abs
+            comparison << (coordinates[1] - @position[1]).abs
+            result << coordinates if squares_moved.values.include?(comparison)
+        end
+        result
+    end
 end
