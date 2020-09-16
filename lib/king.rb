@@ -12,8 +12,4 @@ class King < Player
             :diagonal => [1, 1]
         }
     end
-
-    def potential_moves
-        parse_potential_moves(@legal_movements)
-    end
 end
