@@ -1,7 +1,7 @@
 require_relative "player.rb"
 
 class Pawn < Player
-    attr_accessor :symbol, :diagonal_coordinates
+    attr_accessor :symbol, :diagonal_coordinates, :legal_movements
     def initialize(position, color)
         super(position, color)
         options = {"white" => "\u2659", "black" => "\u265F"}

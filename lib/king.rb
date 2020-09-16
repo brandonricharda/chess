@@ -1,7 +1,7 @@
 require_relative "player.rb"
 
 class King < Player
-    attr_accessor :symbol
+    attr_accessor :symbol, :legal_movements
     def initialize(position, color)
         super(position, color)
         options = {"white" => "\u2654", "black" => "\u265A"}
