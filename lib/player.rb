@@ -1,7 +1,7 @@
 require_relative "board.rb"
 
 class Player
-    attr_accessor :position, :team, :total_moves
+    attr_accessor :position, :team, :total_moves, :piece
     def initialize(position, color)
         @piece = self.class.to_s
         @position = position
@@ -26,7 +26,7 @@ class Player
         if @piece == "Pawn"
             #compensates for board being oriented from black team's perspective
             comparison_operator = @team == "black" ? ">" : "<"
-            result.select { |coordinates| coordinates[1].public_send(comp_op, @position[1]) }
+            result.select { |coordinates| coordinates[1].public_send(comparison_operator, @position[1]) }
         else
             result
         end

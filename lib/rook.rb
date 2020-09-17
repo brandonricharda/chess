@@ -1,6 +1,4 @@
-require_relative "all_directions.rb"
 require_relative "player.rb"
-include All_Directions
 
 class Rook < Player
     attr_accessor :symbol, :legal_movements

@@ -5,7 +5,7 @@ class Team
     attr_accessor :color, :positions, :active_pieces, :selected_piece, :eliminated_pieces
     def initialize(color)
         @color = color
-        @board_reference = Board.new.vertices.keys
+        @board_reference = Board.new.vertices
         @positions = starting_positions
         @active_pieces = create_pieces
         @selected_piece = nil
