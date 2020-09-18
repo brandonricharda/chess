@@ -10,19 +10,18 @@ class Game
     end
 
     def validate_move(piece, move)
-        # if piece is pawn, we need to check two things
-        if piece.piece == "Pawn"
-            # if the move is diagonal...
-            if (move[0] - piece.position[0]).abs == 1
-                # an opponent must be present
-                @board.occupancies[move] == ["black", "white"].select { |team| team != piece.team }
-            else
-                # if move is not diagonal, it must merely be empty
-                @board.occupancies[move] == nil && piece.potential_moves(piece.legal_movements).include?(move)
-            end
+        return false unless piece.potential_moves(piece.legal_movements).include?(move)
+        opponent = ["black", "white"].select { |team| team != piece.team }
+        diagonal = (move[0] - piece.position[0]).abs == 1
+
+        if piece.pece == "Pawn"
+            return @board.occupancies[move] == opponent if diagonal
+            return @board.occupancies[move] == nil
         else
-            #add rules for other pieces here
+            opponent = ["black", "white"].select { |team| team != piece.team }
+            [nil, opponent].include?(@board.occupancies[move])
         end
+        
     end
 
 end
