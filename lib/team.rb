@@ -15,21 +15,21 @@ class Team
     def starting_positions
         if @color == "black"
             result = {
-                Rook => [[0, 0], [7, 0]],
+                Rook   => [[0, 0], [7, 0]],
                 Knight => [[1, 0], [6, 0]],
                 Bishop => [[2, 0], [5, 0]],
-                Queen => [[3, 0]],
-                King => [[4, 0]],
-                Pawn => @board_reference.select { |coordinates| coordinates[1] == 1 }
+                Queen  => [[3, 0]],
+                King   => [[4, 0]],
+                Pawn   => @board_reference.select { |coordinates| coordinates[1] == 1 }
             }
         elsif @color == "white"
             result = {
-                Rook => [[0, 7], [7, 7]],
+                Rook   => [[0, 7], [7, 7]],
                 Knight => [[1, 7], [6, 7]],
                 Bishop => [[2, 7], [5, 7]],
-                Queen => [[3, 7]],
-                King => [[4, 7]],
-                Pawn => @board_reference.select { |coordinates| coordinates[1] == 6 }
+                Queen  => [[3, 7]],
+                King   => [[4, 7]],
+                Pawn   => @board_reference.select { |coordinates| coordinates[1] == 6 }
             }
         end
     end
