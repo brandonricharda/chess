@@ -13,15 +13,17 @@ class Game
         return false unless piece.potential_moves(piece.legal_movements).include?(move)
         opponent = ["black", "white"].select { |team| team != piece.team }
         diagonal = (move[0] - piece.position[0]).abs == 1
-
         if piece.pece == "Pawn"
             return @board.occupancies[move] == opponent if diagonal
-            return @board.occupancies[move] == nil
+            @board.occupancies[move] == nil
         else
             opponent = ["black", "white"].select { |team| team != piece.team }
             [nil, opponent].include?(@board.occupancies[move])
         end
-        
     end
 
+    def determine_capture(piece, move)
+        opponent = ["black", "white"].select { |team| team != piece.team }
+        @board.occupancies[move] == opponent
+    end
 end
