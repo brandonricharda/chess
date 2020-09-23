@@ -93,8 +93,8 @@ class Team
     end
 
     def selector
-        piece_name = select_piece
-        position = select_position(piece_name)
+        piece_name      = select_piece
+        position        = select_position(piece_name)
         @selected_piece = find_piece(piece_name, position)
     end
 
