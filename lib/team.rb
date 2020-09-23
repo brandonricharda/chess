@@ -11,9 +11,9 @@ class Team
         @selected_piece = nil
         @eliminated_pieces = []
         @messages = {
-            "select_piece" => "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
-            "invalid_piece" => "Please choose a valid piece that is still within your active pieces.",
-            "select_position" => "What position is the piece you would like to move? Available:",
+            "select_piece"     => "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
+            "invalid_piece"    => "Please choose a valid piece that is still within your active pieces.",
+            "select_position"  => "What position is the piece you would like to move? Available:",
             "invalid_position" => "Please enter valid coordinates in [x, y] format."
         }
     end
