@@ -10,6 +10,12 @@ class Team
         @active_pieces = create_pieces
         @selected_piece = nil
         @eliminated_pieces = []
+        @messages = {
+            "select_piece" => "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
+            "invalid_piece" => "Please choose a valid piece that is still within your active pieces.",
+            "select_position" => "What position is the piece you would like to move? Available:",
+            "invalid_position" => "Please enter valid coordinates in [x, y] format."
+        }
     end
 
     def starting_positions
@@ -53,18 +59,43 @@ class Team
         result.each { |pair| p pair }
     end
 
-    def selector
-        list_pieces
-        p "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn)."
-        piece = gets.chomp.upcase
-        p "What position is the piece you want to move?"
-        position = JSON.parse(gets.chomp)
-        result = nil
-        @active_pieces.each do |potential|
-            break if result
-            result = potential if potential.position == position && potential.class.to_s.upcase == piece
+    def collect_positions(piece_name)
+        arr = []
+        @active_pieces.each { |piece| arr << piece.position if piece.piece.upcase == piece_name }
+        arr
+    end
+
+    def select_piece
+        p @messages["select_piece"]
+        piece_name = gets.chomp.upcase
+        until @active_pieces.any? { |piece| piece.class.to_s.upcase == piece_name }
+            p @messages["invalid_piece"]
+            list_pieces
+            piece_name = gets.chomp.upcase
         end
-        @selected_piece = result
+        piece_name
+    end
+
+    def select_position(piece_name)
+        available = collect_positions(piece_name)
+        return available[0] if available.length == 1
+        p @messages["select_position"] + available.to_s
+        location = JSON.parse(gets.chomp)
+        until available.include?(location)
+            p @messages["invalid_position"]
+            location = JSON.parse(gets.chomp)
+        end
+        location
+    end
+
+    def find_piece(piece_name, position)
+        @active_pieces.select { |piece| piece.piece.upcase == piece_name && piece.position == position }
+    end
+
+    def selector
+        piece_name = select_piece
+        position = select_position(piece_name)
+        @selected_piece = find_piece(piece_name, position)
     end
 
     def eliminate(piece)
