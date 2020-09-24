@@ -13,6 +13,11 @@ class Player
         @position = destination
     end
 
+    def confirm_moves(legal_movements)
+        potential = potential_moves(legal_movements)
+        @piece == "Pawn" ? pawn_adjustment(potential) : potential
+    end
+
     def potential_moves(legal_movements)
         result = []
         vertices = Board.new.vertices
@@ -20,15 +25,13 @@ class Player
             comparison = []
             comparison << (coordinates[0] - @position[0]).abs
             comparison << (coordinates[1] - @position[1]).abs
-            result << coordinates if legal_movements.values.include?(comparison)
+            result << coordinates if legal_movements.include?(comparison)
         end
+        result
+    end
 
-        if @piece == "Pawn"
-            #compensates for board being oriented from black team's perspective
-            comparison_operator = @team == "black" ? ">" : "<"
-            result.select { |coordinates| coordinates[1].public_send(comparison_operator, @position[1]) }
-        else
-            result
-        end
+    def pawn_adjustment(potential)
+        comparison_operator = @team == "black" ? ">" : "<"
+        potential.select { |coordinates| coordinates[1].public_send(comparison_operator, @position[1]) }
     end
 end
