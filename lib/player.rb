@@ -25,7 +25,7 @@ class Player
             comparison = []
             comparison << (coordinates[0] - @position[0]).abs
             comparison << (coordinates[1] - @position[1]).abs
-            result << coordinates if legal_movements.include?(comparison)
+            result << coordinates if legal_movements.values.include?(comparison)
         end
         result
     end
