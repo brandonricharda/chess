@@ -14,16 +14,36 @@ class Game
     end
 
     def validate_move(piece, move)
-        return false unless piece.confirm_moves(piece.legal_movements).include?(move)
-        opponent = ["black", "white"].select { |team| team != piece.team }
-        diagonal = (move[0] - piece.position[0]).abs == 1
-        if piece.piece == "Pawn"
-            return @board.occupancies[move] == opponent if diagonal
-            @board.occupancies[move] == nil
-        else
-            opponent = ["black", "white"].select { |team| team != piece.team }
-            [nil, opponent].include?(@board.occupancies[move])
-        end
+        return false if impossible_move?(piece, move)
+        piece.piece == "Pawn" ? legal_pawn_move?(piece, move) : legal_non_pawn_move?(piece, move)
+    end
+
+    def legal_non_pawn_move?(piece, move)
+        empty_square?(move) || opponent_present?(piece, move)
+    end
+
+    def legal_pawn_move?(piece, move)
+        diagonal?(piece, move) ? opponent_present?(piece, move) : empty_square?(move)
+    end
+
+    def empty_square?(move)
+        @board.occupancies[move] == nil
+    end
+
+    def opponent_present?(piece, move)
+        @board.occupancies[move] == identify_opponent(piece)
+    end
+
+    def diagonal?(piece, move)
+        (move[0] - piece.position[0]).abs == 1
+    end
+
+    def identify_opponent(piece)
+        ["black", "white"].select { |team| team != piece.team }
+    end
+
+    def impossible_move?(piece, move)
+        !piece.confirm_moves(piece.legal_movements).include?(move)
     end
 
     def determine_capture(piece, move)
@@ -37,8 +57,7 @@ class Game
 
     def select_move(team)
         team.selector
-        piece = team.selected_piece[0]
-        legal_moves = collect_potential_moves(piece)
+        piece = team.selected_piece
         p @messages["enter_move"]
         move = JSON.parse(gets.chomp)
         until validate_move(piece, move)
@@ -48,3 +67,6 @@ class Game
         move
     end
 end
+
+test = Game.new
+p test.select_move(test.black_team)

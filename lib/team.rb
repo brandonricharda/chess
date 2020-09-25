@@ -89,7 +89,7 @@ class Team
     end
 
     def find_piece(piece_name, position)
-        @active_pieces.select { |piece| piece.piece.upcase == piece_name && piece.position == position }
+        @active_pieces.select { |piece| piece.piece.upcase == piece_name && piece.position == position }.first
     end
 
     def selector
