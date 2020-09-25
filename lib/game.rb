@@ -47,8 +47,7 @@ class Game
     end
 
     def determine_capture(piece, move)
-        opponent = ["black", "white"].select { |team| team != piece.team }
-        @board.occupancies[move] == opponent
+        @board.occupancies[move] == identify_opponent(piece)
     end
 
     def collect_potential_moves(piece)
