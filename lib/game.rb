@@ -39,7 +39,7 @@ class Game
     end
 
     def identify_opponent(piece)
-        ["black", "white"].select { |team| team != piece.team }
+        [@black_team, @white_team].select { |team| team.color != piece.team }
     end
 
     def impossible_move?(piece, move)
@@ -63,9 +63,18 @@ class Game
             p @messages["invalid_move"]
             move = JSON.parse(gets.chomp)
         end
-        move
+        [piece, move]
+    end
+
+    def opposing_piece(team, move)
+        @board.occupancies[move]
+    end
+
+    def make_move(team)
+        piece_move = select_move(team)
+        piece = piece_move[0]
+        move = piece_move[1]
+        identify_opponent(piece).eliminate(opposing_piece(team, move)) if opponent_present?(piece, move)
+        piece.update_position(move)
     end
 end
-
-test = Game.new
-p test.select_move(test.black_team)
