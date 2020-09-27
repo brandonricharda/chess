@@ -1,5 +1,6 @@
 Dir["*.rb"].each { |file| require_relative file unless file == "game.rb" }
 require "json"
+include BoardHelper
 
 class Game
     attr_accessor :board, :black_team, :white_team
@@ -13,68 +14,15 @@ class Game
         }
     end
 
-    def validate_move(piece, move)
-        return false if impossible_move?(piece, move)
-        piece.piece == "Pawn" ? legal_pawn_move?(piece, move) : legal_non_pawn_move?(piece, move)
-    end
-
-    def legal_non_pawn_move?(piece, move)
-        empty_square?(move) || opponent_present?(piece, move)
-    end
-
-    def legal_pawn_move?(piece, move)
-        diagonal?(piece, move) ? opponent_present?(piece, move) : empty_square?(move)
-    end
-
-    def empty_square?(move)
-        @board.occupancies[move] == nil
-    end
-
-    def opponent_present?(piece, move)
-        @board.occupancies[move] == identify_opponent(piece)
-    end
-
-    def diagonal?(piece, move)
-        (move[0] - piece.position[0]).abs == 1
-    end
-
-    def identify_opponent(piece)
-        [@black_team, @white_team].select { |team| team.color != piece.team }
-    end
-
-    def impossible_move?(piece, move)
-        !piece.confirm_moves(piece.legal_movements).include?(move)
-    end
-
-    def determine_capture(piece, move)
-        @board.occupancies[move] == identify_opponent(piece)
-    end
-
-    def collect_potential_moves(piece)
-        piece.confirm_moves(piece.legal_movements).select { |move| validate_move(piece, move) }
-    end
-
-    def select_move(team)
-        team.selector
-        piece = team.selected_piece
-        p @messages["enter_move"]
-        move = JSON.parse(gets.chomp)
-        until validate_move(piece, move)
-            p @messages["invalid_move"]
-            move = JSON.parse(gets.chomp)
-        end
-        [piece, move]
-    end
-
-    def opposing_piece(team, move)
-        @board.occupancies[move]
-    end
-
     def make_move(team)
-        piece_move = select_move(team)
-        piece = piece_move[0]
-        move = piece_move[1]
-        identify_opponent(piece).eliminate(opposing_piece(team, move)) if opponent_present?(piece, move)
+        piece = select_piece(team)
+        move = select_move(piece)
+        opposing_team = identify_opponent(piece)
+        opposing_piece = identify_opposing_piece(team, move)
+        opposing_piece.eliminate(opposing_piece) if opponent_present?(piece, move)
         piece.update_position(move)
     end
 end
+
+test = Game.new
+test.make_move(test.black_team)
