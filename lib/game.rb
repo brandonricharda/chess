@@ -14,15 +14,31 @@ class Game
         }
     end
 
+    def play_game
+        until winner?
+            [@black_team, @white_team].each do |team|
+                break if winner?
+                make_move(team)
+            end
+        end
+    end
+
     def make_move(team)
         piece = select_piece(team)
         move = select_move(piece)
         opposing_team = identify_opponent(piece)
         opposing_piece = identify_opposing_piece(team, move)
-        opposing_piece.eliminate(opposing_piece) if opponent_present?(piece, move)
+        opposing_team.eliminate(opposing_piece) if opponent_present?(piece, move)
         piece.update_position(move)
+        @board.update_board([@black_team, @white_team])
+    end
+
+    def winner?
+        result = false
+        [@black_team, @white_team].each do |team|
+            break if result
+            result = team.active_pieces.none? { |piece| piece.class == King }
+        end
+        result
     end
 end
-
-test = Game.new
-test.make_move(test.black_team)
