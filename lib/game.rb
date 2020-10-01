@@ -16,11 +16,12 @@ class Game
 
     def play_game
         until winner?
-            [@black_team, @white_team].each do |team|
-                break if winner?
-                make_move(team)
-            end
+            play_round
         end
+    end
+
+    def play_round
+        [@black_team, @white_team].each { |team| make_move(team) }
     end
 
     def make_move(team)
