@@ -6,6 +6,19 @@ class Board
         @vertices = @occupancies.keys
     end
 
+    def display
+        values = assemble_display
+        values.each_cons(3) { |row| p row }
+    end
+
+    def assemble_display
+        output = Array.new(9, [])
+        @occupancies.each do |key, value|
+            output.find { |element| element.empty? } << value unless output.none? { |element| element.empty? }
+        end
+        output
+    end
+
     def get_vertices
         vertices = {}
         axis = 0.upto(7).to_a
@@ -38,3 +51,6 @@ class Board
     end
 
 end
+
+test = Board.new
+test.display
