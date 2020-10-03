@@ -7,14 +7,16 @@ class Board
     end
 
     def display
+        final = []
         values = assemble_display
-        values.each_cons(3) { |row| p row }
     end
 
     def assemble_display
-        output = Array.new(9, [])
-        @occupancies.each do |key, value|
-            output.find { |element| element.empty? } << value unless output.none? { |element| element.empty? }
+        output = []
+        black_square = "\u25A0"
+        white_square = "\u25A1"
+        until output.length == 64
+            output << (output.length == 0 ? black_square : [black_square, white_square].select { |square| square != output.last })
         end
         output
     end
