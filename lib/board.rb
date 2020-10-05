@@ -8,15 +8,23 @@ class Board
 
     def display
         final = []
-        values = assemble_display
+        values = assemble_checkboard
     end
 
-    def assemble_display
+    def assemble_checkboard
         output = []
         black_square = "\u25A0"
         white_square = "\u25A1"
-        until output.length == 64
-            output << (output.length == 0 ? black_square : [black_square, white_square].select { |square| square != output.last })
+        @occupancies.each do |position, occupant|
+            if occupant
+                output << occupant.symbol
+            else
+                if output.empty?
+                    output << black_square
+                else
+                    output << (output.last == black_square ? white_square : black_square)
+                end
+            end
         end
         output
     end
@@ -48,11 +56,10 @@ class Board
 
     def update_board(teams)
         teams.each do |team|
-            team.active_pieces.each { |piece| @vertices[piece.position] = piece }
+            team.active_pieces.each do |piece|
+                @occupancies[piece.position] = piece
+            end
         end
     end
 
 end
-
-test = Board.new
-test.display

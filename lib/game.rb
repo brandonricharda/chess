@@ -43,3 +43,7 @@ class Game
         result
     end
 end
+
+test = Game.new
+test.board.update_board([test.black_team, test.white_team])
+test.board.display
