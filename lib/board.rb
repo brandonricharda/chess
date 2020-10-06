@@ -8,9 +8,11 @@ class Board
 
     def display
         final = []
-        values = assemble_checkboard
+        checkboard = assemble_checkboard
+        checkboard.each_slice(8) { |row| p row }
     end
 
+    #we need a mechanism that offsets every other row; currently we just get stacks of white and black squares
     def assemble_checkboard
         output = []
         black_square = "\u25A0"
@@ -31,9 +33,11 @@ class Board
 
     def get_vertices
         vertices = {}
-        axis = 0.upto(7).to_a
-        axis.each do |x|
-            axis.each do |y|
+        axis_min = 0
+        axis_max = 7
+        axis = axis_min.upto(axis_max).to_a
+        axis.each do |y|
+            axis.each do |x|
                 vertices[[x, y]] = nil
             end
         end
