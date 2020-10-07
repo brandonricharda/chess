@@ -1,8 +1,9 @@
 class Board
-    attr_accessor :occupancies, :vertices
+    attr_accessor :occupancies, :vertices, :squares
     def initialize
+        @squares = { :black => "\u25A0", :white => "\u25A1" }
         @teams = ["black", "white"]
-        @occupancies = get_vertices
+        @occupancies = assign_occupancies
         @vertices = @occupancies.keys
     end
 
@@ -12,26 +13,21 @@ class Board
         checkboard.each_slice(8) { |row| p row }
     end
 
-    #we need a mechanism that offsets every other row; currently we just get stacks of white and black squares
     def assemble_checkboard
         output = []
-        black_square = "\u25A0"
-        white_square = "\u25A1"
-        @occupancies.each do |position, occupant|
+        @occupancies.each do |coordinates, occupant|
             if occupant
                 output << occupant.symbol
             else
-                if output.empty?
-                    output << black_square
-                else
-                    output << (output.last == black_square ? white_square : black_square)
-                end
+                x = coordinates[0]
+                y = coordinates[1]
+                output << determine_square_color(x, y)
             end
         end
         output
     end
 
-    def get_vertices
+    def assign_occupancies
         vertices = {}
         axis_min = 0
         axis_max = 7
@@ -42,6 +38,18 @@ class Board
             end
         end
         vertices
+    end
+
+    def determine_square_color(x, y)
+        if odd_number(y)
+            odd_number(x) ? @squares[:black] : @squares[:white]
+        else
+            odd_number(x) ? @squares[:white] : @squares[:black]
+        end
+    end
+
+    def odd_number(number)
+        number % 2 > 0
     end
 
     def opponent_present?(position, team)
