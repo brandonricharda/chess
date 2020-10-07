@@ -1,10 +1,13 @@
 class Board
     attr_accessor :occupancies, :vertices, :squares
     def initialize
-        @squares = { :black => "\u25A0", :white => "\u25A1" }
         @teams = ["black", "white"]
         @occupancies = assign_occupancies
         @vertices = @occupancies.keys
+        @squares = { 
+            :black => "\u25A0", 
+            :white => "\u25A1" 
+        }
     end
 
     def display
