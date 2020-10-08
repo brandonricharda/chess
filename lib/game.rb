@@ -28,6 +28,7 @@ class Game
         opposing_team = identify_opponent(piece)
         opposing_piece = identify_opposing_piece(team, move)
         opposing_team.eliminate(opposing_piece) if opponent_present?(piece, move)
+        @board.occupancies[piece.position] = nil
         piece.update_position(move)
         push_to_board
     end
