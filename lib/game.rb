@@ -8,15 +8,13 @@ class Game
         @board = Board.new
         @black_team = Team.new("black")
         @white_team = Team.new("white")
-        @messages = {
-            "enter_move" => "Please enter the move you would like to make.",
-            "invalid_move" => "Please ensure you have entered a valid move. It should be an array with [x, y] coordinates."
-        }
     end
 
     def play_game
+        push_to_board
         until winner?
             play_round
+            @board.display
         end
     end
 
@@ -31,7 +29,7 @@ class Game
         opposing_piece = identify_opposing_piece(team, move)
         opposing_team.eliminate(opposing_piece) if opponent_present?(piece, move)
         piece.update_position(move)
-        @board.update_board([@black_team, @white_team])
+        push_to_board
     end
 
     def winner?
@@ -42,8 +40,11 @@ class Game
         end
         result
     end
+
+    def push_to_board
+        @board.update_board([@black_team, @white_team])
+    end
 end
 
 test = Game.new
-test.board.update_board([test.black_team, test.white_team])
-test.board.display
+test.play_game

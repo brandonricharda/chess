@@ -11,9 +11,9 @@ class Team
         @selected_piece = nil
         @eliminated_pieces = []
         @messages = {
-            "select_piece"     => "Please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
+            "select_piece"     => "#{@color.upcase}, please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
             "invalid_piece"    => "Please choose a valid piece that is still within your active pieces.",
-            "select_position"  => "What position is the piece you would like to move? Available:",
+            "select_position"  => "What position is the piece you would like to move? Available: ",
             "invalid_position" => "Please enter valid coordinates in [x, y] format."
         }
     end
@@ -53,8 +53,8 @@ class Team
     def list_pieces
         result = {}
         @active_pieces.each do |piece|
-            result[piece.class] = [] unless result[piece.class]
-            result[piece.class] << piece.position
+            result[piece.class] = 0 unless result[piece.class]
+            result[piece.class] += 1
         end
         result.each { |pair| p pair }
     end

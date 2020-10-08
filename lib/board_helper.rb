@@ -5,10 +5,10 @@ module BoardHelper
     end
 
     def select_move(piece)
-        p @messages["enter_move"]
+        p "Please enter the move you would like to make."
         move = JSON.parse(gets.chomp)
         until validate_move(piece, move)
-            p @messages["invalid_move"]
+            p "Please ensure you have entered a valid move. It should be an array with [x, y] coordinates."
             move = JSON.parse(gets.chomp)
         end
         [piece, move]
