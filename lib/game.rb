@@ -14,7 +14,6 @@ class Game
         push_to_board
         until winner?
             play_round
-            @board.display
         end
     end
 
@@ -23,6 +22,7 @@ class Game
     end
 
     def make_move(team)
+        @board.display
         piece = select_piece(team)
         move = select_move(piece)
         opposing_team = identify_opponent(piece)

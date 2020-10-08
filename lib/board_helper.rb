@@ -11,7 +11,7 @@ module BoardHelper
             p "Please ensure you have entered a valid move. It should be an array with [x, y] coordinates."
             move = JSON.parse(gets.chomp)
         end
-        [piece, move]
+        move
     end
 
     def validate_move(piece, move)
