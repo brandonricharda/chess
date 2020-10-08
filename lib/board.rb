@@ -13,7 +13,8 @@ class Board
     def display
         final = []
         checkboard = assemble_checkboard
-        checkboard.each_slice(8) { |row| p row }
+        checkboard.each_slice(8) { |row| final << row }
+        final.reverse_each { |row| p row }
     end
 
     def assemble_checkboard
