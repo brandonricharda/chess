@@ -32,7 +32,8 @@ module BoardHelper
     end
 
     def opponent_present?(piece, move)
-        @board.occupancies[move] == identify_opponent(piece)
+        return false if @board.occupancies[move] == nil
+        @board.occupancies[move].team == identify_opponent(piece).first.color
     end
 
     def diagonal?(piece, move)
