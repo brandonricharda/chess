@@ -19,7 +19,10 @@ class Game
     end
 
     def play_round
-        [@black_team, @white_team].each { |team| make_move(team) }
+        [@black_team, @white_team].each do |team|
+            make_move(team)
+            break if winner?
+        end
     end
 
     def make_move(team)
