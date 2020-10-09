@@ -33,7 +33,7 @@ module BoardHelper
 
     def opponent_present?(piece, move)
         return false if @board.occupancies[move] == nil
-        @board.occupancies[move].team == identify_opponent(piece).first.color
+        @board.occupancies[move].team == identify_opponent(piece).color
     end
 
     def diagonal?(piece, move)
@@ -57,7 +57,7 @@ module BoardHelper
         piece.confirm_moves(piece.legal_movements).select { |move| validate_move(piece, move) }
     end
 
-    def identify_opposing_piece(team, move)
-        @board.occupancies[move]
+    def get_piece_at_coordinates(coordinates)
+        @board.occupancies[coordinates]
     end
 end
