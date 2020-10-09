@@ -61,7 +61,6 @@ module BoardHelper
         (move[0] - piece.position[0]).abs == 1
     end
 
-    #I need to look at whether this needs to return an array and what can be done to return the correct value if not
     def identify_opponent(piece)
         piece.team == "black" ? @white_team : @black_team
     end
