@@ -83,6 +83,7 @@ class Team
         p @messages[:select_position] + available.to_s
         location = nil
         until available.include?(location)
+            p @messages[:invalid_piece]
             input = ensure_array_input
             location = JSON.parse(input[:result])
         end

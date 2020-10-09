@@ -8,6 +8,7 @@ module BoardHelper
         p "Please enter the move you would like to make."
         move = nil
         until validate_move(piece, move)
+            p "Make sure you enter a valid move in [x, y] coordinates form to represent where you want the piece to land."
             input = ensure_array_input
             move = JSON.parse(input[:result])
         end
