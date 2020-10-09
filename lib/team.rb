@@ -11,12 +11,6 @@ class Team
         @active_pieces = create_pieces
         @selected_piece = nil
         @eliminated_pieces = []
-        @messages = {
-            :select_piece     => "#{@color.upcase}, please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
-            :invalid_piece    => "Please choose a valid piece that is still within your active pieces.",
-            :select_position  => "What position is the piece you would like to move? Available: ",
-            :invalid_position => "Please enter valid coordinates in [x, y] format."
-        }
     end
 
     def starting_positions
@@ -67,10 +61,10 @@ class Team
     end
 
     def select_piece
-        p @messages[:select_piece]
+        p "#{@color.upcase}, please select which piece you want to move. Just the name of the piece for now (i.e. Pawn)."
         piece_name = gets.chomp.upcase
         until @active_pieces.any? { |piece| piece.class.to_s.upcase == piece_name }
-            p @messages[:invalid_piece]
+            p "Please choose a valid piece that is still within your active pieces."
             list_pieces
             piece_name = gets.chomp.upcase
         end
@@ -80,10 +74,10 @@ class Team
     def select_position(piece_name)
         available = collect_positions(piece_name)
         return available[0] if available.length == 1
-        p @messages[:select_position] + available.to_s
+        p "What position is the piece you would like to move? Available: #{available}"
         location = nil
         until available.include?(location)
-            p @messages[:invalid_piece]
+            p "Please enter valid coordinates in [x, y] format."
             input = ensure_array_input
             location = JSON.parse(input[:result])
         end
