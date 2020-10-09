@@ -11,6 +11,7 @@ class Player
 
     def update_position(destination)
         @position = destination
+        @total_moves += 1
     end
 
     def confirm_moves(legal_movements)

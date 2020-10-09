@@ -1,5 +1,6 @@
-["bishop.rb", "king.rb", "knight.rb", "pawn.rb", "queen.rb", "rook.rb"].each { |file| require_relative file }
+["bishop.rb", "king.rb", "knight.rb", "pawn.rb", "queen.rb", "rook.rb", "board_helper.rb"].each { |file| require_relative file }
 require "json"
+include BoardHelper
 
 class Team
     attr_accessor :color, :positions, :active_pieces, :selected_piece, :eliminated_pieces
@@ -11,10 +12,10 @@ class Team
         @selected_piece = nil
         @eliminated_pieces = []
         @messages = {
-            "select_piece"     => "#{@color.upcase}, please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
-            "invalid_piece"    => "Please choose a valid piece that is still within your active pieces.",
-            "select_position"  => "What position is the piece you would like to move? Available: ",
-            "invalid_position" => "Please enter valid coordinates in [x, y] format."
+            :select_piece     => "#{@color.upcase}, please select which piece you want to move. Just the name of the piece for now (i.e. Pawn).",
+            :invalid_piece    => "Please choose a valid piece that is still within your active pieces.",
+            :select_position  => "What position is the piece you would like to move? Available: ",
+            :invalid_position => "Please enter valid coordinates in [x, y] format."
         }
     end
 
@@ -66,10 +67,10 @@ class Team
     end
 
     def select_piece
-        p @messages["select_piece"]
+        p @messages[:select_piece]
         piece_name = gets.chomp.upcase
         until @active_pieces.any? { |piece| piece.class.to_s.upcase == piece_name }
-            p @messages["invalid_piece"]
+            p @messages[:invalid_piece]
             list_pieces
             piece_name = gets.chomp.upcase
         end
@@ -79,11 +80,11 @@ class Team
     def select_position(piece_name)
         available = collect_positions(piece_name)
         return available[0] if available.length == 1
-        p @messages["select_position"] + available.to_s
-        location = JSON.parse(gets.chomp)
+        p @messages[:select_position] + available.to_s
+        location = nil
         until available.include?(location)
-            p @messages["invalid_position"]
-            location = JSON.parse(gets.chomp)
+            input = ensure_array_input
+            location = JSON.parse(input[:result])
         end
         location
     end

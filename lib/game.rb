@@ -15,6 +15,7 @@ class Game
         until winner?
             play_round
         end
+        p "Game Over!"
     end
 
     def play_round
@@ -26,7 +27,7 @@ class Game
         piece = select_piece(team)
         move = select_move(piece)
         opposing_team = identify_opponent(piece)
-        opposing_piece = get_piece_at_coordinates(coordinates)
+        opposing_piece = get_piece_at_coordinates(move)
         opposing_team.eliminate(opposing_piece) if opponent_present?(piece, move)
         @board.occupancies[piece.position] = nil
         piece.update_position(move)

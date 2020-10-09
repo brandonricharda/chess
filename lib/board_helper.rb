@@ -6,12 +6,32 @@ module BoardHelper
 
     def select_move(piece)
         p "Please enter the move you would like to make."
-        move = JSON.parse(gets.chomp)
+        move = nil
         until validate_move(piece, move)
-            p "Please ensure you have entered a valid move. It should be an array with [x, y] coordinates."
-            move = JSON.parse(gets.chomp)
+            input = ensure_array_input
+            move = JSON.parse(input[:result])
         end
         move
+    end
+
+    def ensure_array_input
+        input = prompt_array_input
+        until is_array?(input)
+            p "Please make sure you enter an array to represent [x, y] coordinates."
+            input = prompt_array_input
+        end
+        input
+    end
+
+    def prompt_array_input
+        input = gets.chomp
+        first_char = input[0]
+        last_char = input[-1]
+        { :result => input, :first_char => first_char, :last_char => last_char }
+    end
+
+    def is_array?(input)
+        input[:first_char] == "[" && input[:last_char] == "]"
     end
 
     def validate_move(piece, move)
